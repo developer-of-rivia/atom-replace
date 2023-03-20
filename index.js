@@ -16,16 +16,16 @@ function parseHtmlFile(filePath) {
   const data = fs.readFileSync(filePath);
   const $ = cheerio.load(data);
 
-  const dataComponent = $('before').attr('data-component');
+  const dataComponent = $('find').attr('data-component');
   
   const find = [];
-  $('before').each(function() {
+  $('find').each(function() {
     const classes = $(this).attr('class').split(/\s+/);
     find.push(...classes);
   });
   
   const withClasses = [];
-  $('after').each(function() {
+  $('replace').each(function() {
     const classes = $(this).attr('class').split(/\s+/);
     withClasses.push(...classes);
   });
