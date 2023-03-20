@@ -3,6 +3,7 @@ const fs = require('fs');
 const css = require('css');
 const cssParser = require('cssom');
 const cheerio = require('cheerio');
+const path = require('path');
 
 
 
@@ -54,7 +55,7 @@ function modifyHtmlFiles(directory, dataAttribute, classesToRemove, classesToAdd
     // Проходимся по каждому файлу
     files.forEach(file => {
       // Игнорируем не-HTML файлы
-      if (!file.endsWith('.html')) return;
+      if (!file.endsWith('.html') && !file.endsWith('.php')) return;
       const filePath = `${directory}/${file}`;
       // Считываем содержимое файла
       fs.readFile(filePath, 'utf-8', (err, html) => {
@@ -80,6 +81,51 @@ function modifyHtmlFiles(directory, dataAttribute, classesToRemove, classesToAdd
     });
   });
 }
+
+
+
+// function modifyHtmlFiles(directory, dataAttribute, classesToRemove, classesToAdd) {
+//   // Считываем все файлы и подпапки в указанной директории рекурсивно
+//   fs.readdir(directory, { withFileTypes: true }, (err, files) => {
+//     if (err) throw err;
+//     files.forEach(file => {
+//       // Создаем путь к файлу
+//       const filePath = `${directory}/${file.name}`;
+//       if (file.isDirectory()) {
+//         modifyHtmlFiles(filePath, dataAttribute, classesToRemove, classesToAdd);
+//       } else if (file.isFile() && file.name.endsWith('.html')) {
+//         // Считываем содержимое файла
+//         fs.readFile(filePath, 'utf-8', (err, html) => {
+//           if (err) throw err;
+//           // Используем cheerio для поиска нужных тегов
+//           const $ = cheerio.load(html);
+//           $([dataAttribute]).each((i, el) => {
+//             const $el = $(el);
+//             // Проверяем, содержит ли элемент все указанные классы
+//             if (classesToRemove.every(className => $el.hasClass(className))) {
+//               // Удаляем указанные классы
+//               $el.removeClass(classesToRemove.join(' '));
+//               // Добавляем новые классы
+//               $el.addClass(classesToAdd.join(' '));
+//             }
+//           });
+//           // Сохраняем измененный HTML-файл
+//           fs.writeFile(filePath, $.html(), err => {
+//             if (err) throw err;
+//             console.log(`Файл ${filePath} изменен.`);
+//           });
+//         });
+//       }
+//     });
+//   });
+// }
+
+
+
+
+
+
+
 
 modifyHtmlFiles(
   'mykit/',

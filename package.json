@@ -35,7 +35,8 @@
     "gulp-ttf2woff2": "^4.0.1",
     "gulp-webp": "^4.0.1",
     "imagemin-jpeg-recompress": "^7.1.0",
-    "imagemin-pngquant": "^9.0.2"
+    "imagemin-pngquant": "^9.0.2",
+    "path": "^0.12.7"
   },
   "dependencies": {
     "@babel/core": "^7.20.12",
