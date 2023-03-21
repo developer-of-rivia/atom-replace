@@ -55,7 +55,7 @@ function modifyHtmlFiles(directory, dataAttribute, classesToRemove, classesToAdd
     // Проходимся по каждому файлу
     files.forEach(file => {
       // Игнорируем не-HTML файлы
-      if (!file.endsWith('.html') && !file.endsWith('.php')) return;
+      if (!file.endsWith('.html') && !file.endsWith('.php') && !file.endsWith('.blade')) return;
       const filePath = `${directory}/${file}`;
       // Считываем содержимое файла
       fs.readFile(filePath, 'utf-8', (err, html) => {
@@ -84,49 +84,6 @@ function modifyHtmlFiles(directory, dataAttribute, classesToRemove, classesToAdd
 
 
 
-// function modifyHtmlFiles(directory, dataAttribute, classesToRemove, classesToAdd) {
-//   // Считываем все файлы и подпапки в указанной директории рекурсивно
-//   fs.readdir(directory, { withFileTypes: true }, (err, files) => {
-//     if (err) throw err;
-//     files.forEach(file => {
-//       // Создаем путь к файлу
-//       const filePath = `${directory}/${file.name}`;
-//       if (file.isDirectory()) {
-//         modifyHtmlFiles(filePath, dataAttribute, classesToRemove, classesToAdd);
-//       } else if (file.isFile() && file.name.endsWith('.html')) {
-//         // Считываем содержимое файла
-//         fs.readFile(filePath, 'utf-8', (err, html) => {
-//           if (err) throw err;
-//           // Используем cheerio для поиска нужных тегов
-//           const $ = cheerio.load(html);
-//           $([dataAttribute]).each((i, el) => {
-//             const $el = $(el);
-//             // Проверяем, содержит ли элемент все указанные классы
-//             if (classesToRemove.every(className => $el.hasClass(className))) {
-//               // Удаляем указанные классы
-//               $el.removeClass(classesToRemove.join(' '));
-//               // Добавляем новые классы
-//               $el.addClass(classesToAdd.join(' '));
-//             }
-//           });
-//           // Сохраняем измененный HTML-файл
-//           fs.writeFile(filePath, $.html(), err => {
-//             if (err) throw err;
-//             console.log(`Файл ${filePath} изменен.`);
-//           });
-//         });
-//       }
-//     });
-//   });
-// }
-
-
-
-
-
-
-
-
 modifyHtmlFiles(
   'mykit/',
   'data-component="' + dataComponent + '"',
@@ -134,66 +91,19 @@ modifyHtmlFiles(
   with2
 );
 
+modifyHtmlFiles(
+  'mykit/inner/',
+  'data-component="' + dataComponent + '"',
+  find,
+  with2
+);
+
+
+
+
 // modifyHtmlFiles(
 //   'mykit/',
 //   'data-component="button"',
 //   ['one', 'two', 'three'],
 //   ['four', 'five', 'six']
 // );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function addNewClassToHtmlTag(filePath, dataAttr, classNames, newClassNames) {
-//   const html = fs.readFileSync(filePath);
-//   const $ = cheerio.load(html);
-
-//   $(`[${dataAttr}]`).each(function() {
-//     const $elem = $(this);
-//     const classes = $elem.attr('class').split(' ');
-//     for (let i = 0; i < classNames.length; i++) {
-//       if (!classes.includes(classNames[i])) {
-//         return; // элемент не содержит один из необходимых классов
-//       }
-//     }
-//     $elem.addClass(newClassNames);
-//   });
-
-//   fs.writeFileSync(filePath, $.html(), 'utf-8');
-// }
-
-// addNewClassToHtmlTag('mykit/index.html', 'data-button-component', ['one'], 'new-class');

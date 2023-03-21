@@ -12,6 +12,7 @@
     "browser-sync": "^2.27.5",
     "cheerio": "^1.0.0-rc.12",
     "del": "^7.0.0",
+    "glob": "^9.3.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-babel": "^8.0.0",
