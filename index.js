@@ -1,17 +1,11 @@
 // подключения
 const fs = require('fs');
-const css = require('css');
-const cssParser = require('cssom');
 const cheerio = require('cheerio');
-const path = require('path');
-
-
-
 
 
 
 /*
-  анализ файла find.html и заполнение переменных данными из него
+  1. анализ файла find.html и заполнение переменных данными из него
 */
 function parseHtmlFile(filePath) {
   const data = fs.readFileSync(filePath);
@@ -46,7 +40,7 @@ let with2 = parseObject.with;
 
 
 /*
-  наход нужных компонентов и их замена
+  2. наход нужных компонентов и их замена
 */
 function modifyHtmlFiles(directory, dataAttribute, classesToRemove, classesToAdd) {
   // Считываем все файлы в указанной директории
@@ -83,14 +77,14 @@ function modifyHtmlFiles(directory, dataAttribute, classesToRemove, classesToAdd
 }
 
 
-
+// mykit/
 modifyHtmlFiles(
   'mykit/',
   'data-component="' + dataComponent + '"',
   find,
   with2
 );
-
+// mykit/inner/
 modifyHtmlFiles(
   'mykit/inner/',
   'data-component="' + dataComponent + '"',
@@ -100,10 +94,13 @@ modifyHtmlFiles(
 
 
 
+/* Вид аргументов
 
-// modifyHtmlFiles(
-//   'mykit/',
-//   'data-component="button"',
-//   ['one', 'two', 'three'],
-//   ['four', 'five', 'six']
-// );
+  modifyHtmlFiles(
+    'mykit/',
+    'data-component="button"',
+    ['one', 'two', 'three'],
+    ['four', 'five', 'six']
+  );
+
+*/

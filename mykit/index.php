@@ -8,7 +8,7 @@
 <body>
     
 
-    <a href="#" data-component="button" class="body__button two three four"></a>
+    <a href="#" data-component="button" class="body__button fz16 bg-center"></a>
 
 
 </body></html>
